@@ -25,7 +25,6 @@ export class APIError extends Error {
     }
 }
 
-// Kod analizi yap
 export async function analyzeCode(
     request: CodeAnalysisRequest
 ): Promise<CodeAnalysisResponse> {
@@ -37,7 +36,7 @@ export async function analyzeCode(
             },
             body: JSON.stringify({
                 ...request,
-                use_mock: true  // ← Bunu ekle (test için)
+                use_mock: true
             }),
         });
 
@@ -68,7 +67,7 @@ export async function analyzeCode(
     }
 }
 
-// Backend sağlık kontrolü
+// Backend  kontrolü
 export async function checkBackendHealth(): Promise<boolean> {
     try {
         const response = await fetch(`${API_BASE_URL}/`);

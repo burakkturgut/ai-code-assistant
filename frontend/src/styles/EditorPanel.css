@@ -1,0 +1,117 @@
+.editor-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    border-right: 1px solid var(--border-color);
+    min-width: 400px;
+}
+
+.editor-toolbar {
+    height: 50px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    gap: var(--spacing-sm);
+}
+
+.editor-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.editor-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.editor-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 198, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.editor-btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-copy:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 198, 255, 0.2);
+}
+
+.btn-clear:hover {
+    background: var(--bg-hover);
+    border-color: var(--error);
+    color: var(--error);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--error-glow);
+}
+
+.toolbar-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding: 8px 16px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.toolbar-label:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+}
+
+.toolbar-lang-badge {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    transition: all var(--transition-fast);
+}
+
+.toolbar-label:hover .toolbar-lang-badge {
+    transform: scale(1.1);
+}
+
+.editor-wrapper {
+    flex: 1;
+    overflow: hidden;
+}

@@ -46,51 +46,73 @@ def root():
 
 def build_prompt(req: CodeAnalysisRequest) -> str:
     prompts = {
-        "explain": f"""You are a helpful coding assistant.
-Explain the following {req.language} code clearly and concisely.
+        "explain": f"""Sen yardımcı bir kodlama asistanısın.
+Aşağıdaki {req.language} kodunu kısa ve öz bir şekilde Türkçe açıkla.
 
-Code:
+Kod:
 ```{req.language}
 {req.code}
 ```
 
-Provide:
-1. Brief overview
-2. Key components explanation
-3. Notable patterns
+ÖNEMLİ:
+- Maksimum 4-5 madde
+- Kısa ve net cümleler
+- Başlangıç seviyesine uygun
 
-Use bullet points and be beginner-friendly.""",
+Format:
+** Kod Açıklaması:**
+• [Ana işlev]
+• [Önemli detay 1]
+• [Önemli detay 2]
 
-        "find_bugs": f"""You are an expert code reviewer.
-Find bugs or issues in the following {req.language} code.
+Gereksiz uzatma, kısa ve anlaşılır ol.""",
 
-Code:
+        "find_bugs": f"""Sen uzman bir kod inceleyicisisin.
+Aşağıdaki {req.language} kodundaki hataları bul, kısaca açıkla ve düzeltilmiş kodu ver.
+
+Kod:
 ```{req.language}
 {req.code}
 ```
 
-Provide:
-1. List of bugs/errors found
-2. Why each is a problem
-3. Suggested fixes
+ÖNEMLİ FORMAT:
+1. Önce hataları listele (maksimum 3-4 madde)
+2. Sonra düzeltilmiş kodu ver
 
-Use bullet points.""",
+Şu formatta yanıt ver:
 
-        "improve": f"""You are a senior software engineer.
-Improve the following {req.language} code.
+** Bulunan Hatalar:**
+• [Hata 1]: [Kısa açıklama]
+• [Hata 2]: [Kısa açıklama]
 
-Code:
+** Düzeltilmiş Kod:**
+```{req.language}
+[düzeltilmiş kod]
+```
+
+Eğer hata yoksa sadece " Kod temiz, hata bulunamadı." yaz.""",
+
+        "improve": f"""Sen kıdemli bir yazılım mühendisisin.
+Aşağıdaki {req.language} kodunu iyileştir ve SADECE düzeltilmiş kodu döndür.
+
+Orijinal Kod:
 ```{req.language}
 {req.code}
 ```
 
-Provide:
-1. Code quality improvements
-2. Performance optimizations
-3. Best practices
-4. Improved code example if needed
+ÖNEMLİ KURALLAR:
+- Sadece iyileştirilmiş kodu yaz
+- Hiçbir açıklama ekleme
+- Başlık ekleme
+- Markdown kod bloğu içinde yaz
+- Tekrarlanan kod satırlarını kaldır
+- Modern syntax kullan (const/let, arrow functions vb.)
+- Gereksiz satırları temizle
 
-Use bullet points and be practical."""
+Sadece şu formatta döndür:
+```{req.language}
+[temiz, iyileştirilmiş kod]
+```"""
     }
     return prompts[req.action]
 
@@ -105,7 +127,7 @@ async def analyze_code(request: CodeAnalysisRequest):
     last_error = None
     for model_name in MODELS_TO_TRY:
         try:
-            print(f"🔄 Trying model: {model_name}")
+            print(f" Trying model: {model_name}")
             response = client.models.generate_content(
                 model=model_name,
                 contents=prompt
@@ -114,7 +136,7 @@ async def analyze_code(request: CodeAnalysisRequest):
             if not response.text:
                 raise ValueError("Empty response from Gemini")
             
-            print(f"✅ Success with model: {model_name}")
+            print(f" Success with model: {model_name}")
             return {
                 "success": True,
                 "response": response.text,
@@ -124,7 +146,7 @@ async def analyze_code(request: CodeAnalysisRequest):
             }
         except Exception as e:
             last_error = str(e)
-            print(f"❌ Model {model_name} failed: {e}")
+            print(f" Model {model_name} failed: {e}")
             continue
     
     # Hiçbir model çalışmadıysa
@@ -135,7 +157,7 @@ async def analyze_code(request: CodeAnalysisRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    print("🚀 Starting AI Code Assistant API")
-    print(f"📦 Using: google-genai SDK")
-    print(f"🤖 Models: {', '.join(MODELS_TO_TRY)}")
+    print(" Starting AI Code Assistant API")
+    print(f" Using: google-genai SDK")
+    print(f" Models: {', '.join(MODELS_TO_TRY)}")
     uvicorn.run(app, host="0.0.0.0", port=8000)
