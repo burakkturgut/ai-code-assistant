@@ -12,7 +12,7 @@ app = FastAPI(title="AI Code Assistant API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["ai-code-assistant-vert.vercel.app"],
+    allow_origins=["https://ai-code-assistant-vert.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
