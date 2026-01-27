@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Bot, User, Trash2, Copy, Sparkles, Bug, Lightbulb } from 'lucide-react';
+import { User, Trash2, Copy, Sparkles, Bug, Lightbulb } from 'lucide-react';
 import '../styles/ChatPanel.css';
 // Robot resminizi import edin
 import robotImage from '../assets/image.png'; // Resim yolunuzu buraya yazın
