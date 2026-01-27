@@ -1,6 +1,6 @@
 // API Service - Backend ile iletişim
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://ai-code-assistant-o5y3.onrender.com';
 
 export interface CodeAnalysisRequest {
     code: string;
