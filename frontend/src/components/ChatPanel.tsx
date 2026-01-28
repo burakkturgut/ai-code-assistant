@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { User, Trash2, Copy, Sparkles, Bug, Lightbulb } from 'lucide-react';
 import '../styles/ChatPanel.css';
-// Robot resminizi import edin
-import robotImage from '../assets/image.png'; // Resim yolunuzu buraya yazın
+import robotImage from '../assets/image.png';
 
 interface Message {
     id: number;
@@ -41,19 +40,30 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
+    const getStatusInfo = () => {
+        if (isLoading) {
+            return { text: 'yazıyor...', className: 'typing' };
+        }
+        if (backendConnected) {
+            return { text: 'çevrimiçi', className: 'online' };
+        }
+        return { text: 'çevrimdışı', className: 'offline' };
+    };
+
+    const statusInfo = getStatusInfo();
+
     return (
         <aside className="chat-panel" style={{ width: `${panelWidth}px` }}>
-            {/* Chat Header */}
+
             <div className="chat-header">
                 <div className="chat-header-left">
                     <div className="ai-avatar">
-                        {/* Kendi robot resminiz */}
                         <img src={robotImage} alt="AI Robot" className="robot-image" />
                     </div>
                     <div className="chat-header-text">
                         <span className="chat-title">AI Asistan</span>
-                        <span className="chat-status">
-                            {isLoading ? 'yazıyor...' : 'çevrimiçi'}
+                        <span className={`chat-status ${statusInfo.className}`}>
+                            {statusInfo.text}
                         </span>
                     </div>
                 </div>
@@ -62,13 +72,11 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                 </button>
             </div>
 
-            {/* Chat Messages */}
             <div className="chat-messages">
                 {messages.map((msg) => (
                     <div key={msg.id} className={`message message-${msg.type}`}>
                         {msg.type === 'ai' && (
                             <div className="message-avatar">
-                                {/* Küçük mesaj avatarı - resim veya ikon */}
                                 <img src={robotImage} alt="AI" className="robot-image-small" />
                             </div>
                         )}
@@ -129,7 +137,6 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
                 <div ref={messagesEndRef} />
             </div>
 
-            {/* Chat Actions */}
             <div className="chat-actions">
                 <button
                     className="action-btn btn-explain"

@@ -8,7 +8,6 @@ import { configureMonaco } from './utils/monacoConfig';
 import './styles/theme-variables.css';
 import './styles/App.css';
 
-// LocalStorage Keys
 const STORAGE_KEYS = {
   CODE: 'ai-code-assistant-code',
   LANGUAGE: 'ai-code-assistant-language',
@@ -17,10 +16,12 @@ const STORAGE_KEYS = {
 };
 
 function App() {
-  // Load saved data from localStorage
   const [code, setCode] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.CODE);
-    return saved || '// Kodunuzu buraya yazın...\n// Sonra sağ taraftaki butonlardan birini seçin!';
+    return saved || '// Sistem hazır olduğunda üst kısımda "Bağlandı" ibaresini göreceksiniz.\n' +
+      '// Bu mesaj göründükten sonra kodunuzu güvenle düzenleyebilirsiniz.\n\n' +
+      '// Kodunuzu buraya yazın...\n' +
+      '// Ardından sağ taraftaki butonlardan birini seçerek AI analizi başlatın.';
   });
 
   const [language, setLanguage] = useState(() => {
@@ -51,18 +52,15 @@ function App() {
   const [panelWidth, setPanelWidth] = useState(450);
   const [isResizing, setIsResizing] = useState(false);
 
-  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', themeMode);
     document.documentElement.setAttribute('data-color', themeColor);
   }, [themeMode, themeColor]);
 
-  // Monaco Editor konfigürasyonu
   useEffect(() => {
     configureMonaco();
   }, []);
 
-  // Auto-save to localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.CODE, code);
   }, [code]);
@@ -83,7 +81,6 @@ function App() {
     checkBackendHealth().then(setBackendConnected);
   }, []);
 
-  // Keyboard Shortcuts
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === 'Enter') {
@@ -108,7 +105,6 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [code, language, isLoading, backendConnected]);
 
-  // Resize handler
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isResizing) return;

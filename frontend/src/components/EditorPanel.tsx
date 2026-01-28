@@ -28,7 +28,6 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
     onLoadCode,
     LanguageIcon
 }) => {
-    // Monaco Editor'ün dil ID'lerini eşleştir
     const getMonacoLanguage = (lang: string): string => {
         const languageMap: Record<string, string> = {
             'javascript': 'javascript',
@@ -102,7 +101,7 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
                         fontLigatures: true,
                         padding: { top: 16, bottom: 16 },
 
-                        // ✨ OTOMATIK TAMAMLAMA - TÜM DİLLER İÇİN
+
                         suggest: {
                             showKeywords: true,
                             showSnippets: true,
@@ -132,59 +131,48 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
                             snippetsPreventQuickSuggestions: false,
                         },
 
-                        // Otomatik öneriler - HER ŞEY AÇIK
+
                         quickSuggestions: {
-                            other: 'on',      // Genel kod için
-                            comments: 'off',   // Yorumlarda kapalı
-                            strings: 'on'      // String içinde de açık
+                            other: 'on',
+                            comments: 'off',
+                            strings: 'on'
                         },
 
-                        // Belirli karakterlerde otomatik aç
                         suggestOnTriggerCharacters: true,
 
-                        // Kelime tabanlı öneriler
                         wordBasedSuggestions: 'allDocuments',
 
-                        // Parametre ipuçları
                         parameterHints: {
                             enabled: true,
                             cycle: true
                         },
 
-                        // Otomatik parantez tamamlama
                         autoClosingBrackets: 'always',
                         autoClosingQuotes: 'always',
                         autoSurround: 'languageDefined',
 
-                        // Kod biçimlendirme
                         formatOnType: true,
                         formatOnPaste: true,
                         autoIndent: 'full',
 
-                        // Hata göstergeleri
                         renderValidationDecorations: 'on',
 
-                        // Parantez eşleştirme ve renklendirme
                         matchBrackets: 'always',
                         bracketPairColorization: {
                             enabled: true,
                             independentColorPoolPerBracketType: true
                         },
 
-                        // Kod katlama
                         folding: true,
                         foldingStrategy: 'indentation',
                         showFoldingControls: 'always',
 
-                        // Kelime ve seçim vurgulama
                         occurrencesHighlight: 'singleFile',
                         selectionHighlight: true,
 
-                        // İmleç efektleri
                         cursorBlinking: 'smooth',
                         cursorSmoothCaretAnimation: 'on',
 
-                        // Ek özellikler
                         tabCompletion: 'on',
                         acceptSuggestionOnCommitCharacter: true,
                         acceptSuggestionOnEnter: 'on',
