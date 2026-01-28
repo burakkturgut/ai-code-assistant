@@ -13,6 +13,11 @@ Sadece yazmayın, AI ile birlikte geliştirin!**
 </div>
 
 ---
+## 🎥 Demo Video
+
+[![AI Code Assistant](./frontend/src/assets/screenshots/darkThema.png)](./frontend/src/assets/proje.mp4)
+
+---
 
 ##  Neden AI Code Assistant?
 
