@@ -13,9 +13,9 @@ Sadece yazmayın, AI ile birlikte geliştirin!**
 </div>
 
 ---
-## 🎥 Demo Video
+## Kullanım
 
-[![AI Code Assistant](./frontend/src/assets/screenshots/darkThema.png)](./frontend/src/assets/proje.mp4)
+[ Kullanım videosunu izlemek için tıklayın](./frontend/src/assets/proje.mp4)
 
 ---
 
